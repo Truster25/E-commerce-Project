@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRUSTER TECHNOLOGY - Your Electronics Destination</title>
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Homepage styles -->
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="container nav">
+      <a href="index.html" class="brand">
+        <img src="image/IMG_7406.png" alt="Truster Technology Logo" class="logo">
+        <span>TRUSTER TECHNOLOGY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="shopping.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" class="btn-outline">Login</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Welcome to TRUSTER TECHNOLOGY</h1>
+      <p>Your Trusted Source For Laptops, Phones, And Accessories.</p>
+      <a href="shopping.html" class="btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Product Categories -->
+  <section class="container categories-section">
+    <h2>Shop by Category</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <img src="image/mac.avif" alt="Laptops">
+        <h3>Laptops</h3>
+      </div>
+      <div class="category-card">
+        <img src="image/iphone.jpg" alt="Phones">
+        <h3>Phones</h3>
+      </div>
+      <div class="category-card">
+        <img src="image/headset.jpg" alt="Accessories">
+        <h3>Accessories</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="container products-section">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <article class="card">
+        <div class="card-media">Laptop Image</div>
+        <div class="card-body">
+          <h3>Laptop Model A</h3>
+          <p>Powerful and sleek for professionals.</p>
+          <div class="card-footer">
+            <span class="price">$999</span>
+            <button class="btn-outline">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-media">Smartphone Image</div>
+        <div class="card-body">
+          <h3>Smartphone X</h3>
+          <p>High performance, modern design.</p>
+          <div class="card-footer">
+            <span class="price">$699</span>
+            <button class="btn-outline">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> TRUSTER TECHNOLOGY — Trust Is Our Priority.</p>
+    
+    <!-- Add your phone number here -->
+    <p>Call us: <a href="tel:+250780545038">+250 780 545 038</a></p>
+    
+    <nav>
+      <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">About</a>
+    </nav>
+  </div>
+</footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => links.classList.toggle("open"));
+  </script>
+</body>
+</html>
+

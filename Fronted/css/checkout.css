@@ -1,0 +1,113 @@
+/* General Checkout Section */
+.checkout-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px 0;
+  background-color: #1c1c1c; /* Dark grey background */
+  color: #fff;
+}
+
+/* Grid for form and summary */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+@media (max-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Checkout Form */
+.checkout-form {
+  background-color: #2c2c2c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.checkout-form h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.checkout-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1c1c1c;
+  color: #fff;
+}
+
+.checkout-form input:focus {
+  outline: 2px solid #fff;
+}
+
+/* Submit Button */
+.checkout-form .btn-outline {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkout-form .btn-outline:hover {
+  background-color: #fff;
+  color: #1c1c1c;
+}
+
+/* Order Summary */
+.checkout-summary {
+  background-color: #2c2c2c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.checkout-summary h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.summary-table th,
+.summary-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.summary-table th {
+  font-weight: 600;
+}
+
+.summary-table td input {
+  width: 60px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1c1c1c;
+  color: #fff;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — TRUSTER TECHNOLOGY</title>
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Shop page styles -->
+  <link rel="stylesheet" href="css/shopping.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="container nav">
+      <a href="index.html" class="brand">
+        <img src="image/IMG_7406.png" alt="Truster Technology Logo" class="logo">
+        <span>TRUSTER TECHNOLOGY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shopping.html" class="active">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" class="btn-outline">Login</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Shop Our Products</h1>
+      <p>Browse products by category or view all items.</p>
+    </div>
+  </section>
+
+  <!-- Categories Filter -->
+  <section class="container categories-section">
+    <h2>Categories</h2>
+    <div class="categories-grid">
+      <div class="category-card active" data-filter="all">
+        <img src="image/categories.png" alt="All Products">
+        <h3>All</h3>
+      </div>
+      <div class="category-card" data-filter="laptops">
+        <img src="image/mac.avif" alt="Laptops">
+        <h3>Laptops</h3>
+      </div>
+      <div class="category-card" data-filter="phones">
+        <img src="image/iphone.jpg" alt="Phones">
+        <h3>Phones</h3>
+      </div>
+      <div class="category-card" data-filter="accessories">
+        <img src="image/headset.jpg" alt="Accessories">
+        <h3>Accessories</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog -->
+  <section class="container shop-section">
+    <h2>All Products</h2>
+    <div class="product-grid">
+      <!-- Laptop -->
+      <article class="card" data-category="laptops" data-id="p1" data-name="Laptop Model A" data-price="999">
+        <div class="card-media">
+          <img src="image/mac.avif" alt="Laptop Model A">
+        </div>
+        <div class="card-body">
+          <h3>Laptop Model A</h3>
+          <p>$999</p>
+          <button class="btn-add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+
+      <!-- Phone -->
+      <article class="card" data-category="phones" data-id="p2" data-name="Smartphone X" data-price="699">
+        <div class="card-media">
+          <img src="image/iphone.jpg" alt="Smartphone X">
+        </div>
+        <div class="card-body">
+          <h3>Smartphone X</h3>
+          <p>$699</p>
+          <button class="btn-add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+
+      <!-- Accessory -->
+      <article class="card" data-category="accessories" data-id="p3" data-name="Wireless Earbuds" data-price="120">
+        <div class="card-media">
+          <img src="image/headset.jpg" alt="Wireless Earbuds">
+        </div>
+        <div class="card-body">
+          <h3>Wireless Earbuds</h3>
+          <p>$120</p>
+          <button class="btn-add-to-cart">Add to Cart</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> TRUSTER TECHNOLOGY — Trust Is Our Priority.</p>
+      <nav>
+        <a href="#">Privacy</a> · <a href="#">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Combined Script -->
+  <script>
+    // Update footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => links.classList.toggle("open"));
+
+    // Category filter functionality
+    const categoryCards = document.querySelectorAll('.categories-grid .category-card');
+    const productCards = document.querySelectorAll('.product-grid .card');
+
+    categoryCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const filter = card.dataset.filter;
+        productCards.forEach(product => {
+          if (filter === 'all' || product.dataset.category === filter) {
+            product.style.display = 'block';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+        // Highlight active category
+        categoryCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      });
+    });
+
+    // Add to Cart functionality
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        const product = {
+          id: card.dataset.id,
+          name: card.dataset.name,
+          price: parseFloat(card.dataset.price),
+          quantity: 1
+        };
+        const existing = cart.find(item => item.id === product.id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push(product);
+        }
+        saveCart();
+        alert(`${product.name} added to cart!`);
+      });
+    });
+  </script>
+</body>
+</html>

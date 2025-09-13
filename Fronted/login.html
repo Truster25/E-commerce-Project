@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — TRUSTER TECHNOLOGY</title>
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- Login/Signup page styles -->
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="container nav">
+      <a href="index.html" class="brand">
+        <img src="image/IMG_7406.png" alt="Truster Technology Logo" class="logo">
+        <span>TRUSTER TECHNOLOGY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shopping.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" class="active btn-outline">Login</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Login</h1>
+      <p>Access your account to continue shopping.</p>
+    </div>
+  </section>
+
+  <!-- Login Form -->
+  <section class="container auth-section">
+    <form class="auth-form" action="#" method="POST">
+      <h2>Login</h2>
+
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter password" required>
+
+      <div class="actions">
+        <button type="submit" class="btn">Login</button>
+        <a href="signup.html">Create an Account</a>
+      </div>
+    </form>
+  </section>
+
+  <!-- Footer -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> TRUSTER TECHNOLOGY — Trust Is Our Priority.</p>
+    
+    <!-- Add your phone number here -->
+    <p>Call us: <a href="tel:+250780545038">+250 780 545 038</a></p>
+    
+    <nav>
+      <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">About</a>
+    </nav>
+  </div>
+</footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => links.classList.toggle("open"));
+  </script>
+</body>
+</html>

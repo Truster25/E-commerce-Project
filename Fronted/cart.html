@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — TRUSTER TECHNOLOGY</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="container nav">
+      <a href="index.html" class="brand">
+        <img src="image/IMG_7406.png" alt="Truster Technology Logo" class="logo">
+        <span>TRUSTER TECHNOLOGY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shopping.html">Shop</a></li>
+        <li><a href="cart.html" class="active">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="login.html" class="btn-outline">Login</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Your Cart</h1>
+      <p>Review your selected items before checkout.</p>
+    </div>
+  </section>
+
+  <!-- Cart Section -->
+  <section class="container cart-section">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Cart items will be injected here by JS -->
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <h3>Total: $<span id="cart-total">0.00</span></h3>
+      <a href="checkout.html" class="btn-outline">Proceed to Checkout</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> TRUSTER TECHNOLOGY — Trust Is Our Priority.</p>
+      <nav>
+        <a href="#">Privacy</a> · <a href="#">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => links.classList.toggle("open"));
+
+    // Load cart from LocalStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        // Show empty cart message
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="5" style="text-align:center; padding:20px;">Your cart is empty.</td>`;
+        cartItems.appendChild(tr);
+        cartTotal.textContent = '0.00';
+        return;
+      }
+
+      cart.forEach(product => {
+        const productTotal = product.price * product.quantity;
+        total += productTotal;
+
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+          <td>${product.name}</td>
+          <td>$${product.price.toFixed(2)}</td>
+          <td>
+            <input type="number" min="1" value="${product.quantity}" class="cart-quantity" data-id="${product.id}">
+          </td>
+          <td>$${productTotal.toFixed(2)}</td>
+          <td><button class="btn-remove" data-id="${product.id}">X</button></td>
+        `;
+        cartItems.appendChild(tr);
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+
+      // Attach quantity change listeners
+      const qtyInputs = document.querySelectorAll('.cart-quantity');
+      qtyInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const id = e.target.dataset.id;
+          const value = parseInt(e.target.value);
+          const item = cart.find(p => p.id === id);
+          if (item) {
+            item.quantity = value;
+            saveCart();
+            renderCart();
+          }
+        });
+      });
+
+      // Attach remove listeners
+      const removeButtons = document.querySelectorAll('.btn-remove');
+      removeButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.dataset.id;
+          cart = cart.filter(p => p.id !== id);
+          saveCart();
+          renderCart();
+        });
+      });
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>

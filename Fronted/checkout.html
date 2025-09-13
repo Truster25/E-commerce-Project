@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — TRUSTER TECHNOLOGY</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <nav class="container nav">
+      <a href="index.html" class="brand">
+        <img src="image/IMG_7406.png" alt="Truster Technology Logo" class="logo">
+        <span>TRUSTER TECHNOLOGY</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shopping.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html" class="active">Checkout</a></li>
+        <li><a href="login.html" class="btn-outline">Login</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Checkout</h1>
+      <p>Complete your order by filling in your details below.</p>
+    </div>
+  </section>
+
+  <!-- Checkout Section -->
+  <section class="container checkout-section">
+    <div class="checkout-grid">
+      <!-- Shipping / Customer Details -->
+      <div class="checkout-form">
+        <h2>Shipping Information</h2>
+        <form id="checkout-form">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required>
+
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+
+          <label for="address">Address</label>
+          <input type="text" id="address" required>
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" required>
+
+          <button type="submit" class="btn-outline">Place Order</button>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="summary-items">
+            <!-- Cart items injected by JS -->
+          </tbody>
+        </table>
+        <h3>Total: $<span id="summary-total">0.00</span></h3>
+      </div>
+    </div>
+  </section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> TRUSTER TECHNOLOGY — Trust Is Our Priority.</p>
+    
+    <!-- Add your phone number here -->
+    <p>Call us: <a href="tel:+250780545038">+250 780 545 038</a></p>
+    
+    <nav>
+      <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">About</a>
+    </nav>
+  </div>
+</footer>
+
+  <!-- Script -->
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => links.classList.toggle("open"));
+
+    // Load cart from LocalStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const summaryItems = document.getElementById('summary-items');
+    const summaryTotal = document.getElementById('summary-total');
+
+    function renderSummary() {
+      summaryItems.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="3" style="text-align:center; padding:20px;">Your cart is empty.</td>`;
+        summaryItems.appendChild(tr);
+        summaryTotal.textContent = '0.00';
+        return;
+      }
+
+      cart.forEach(product => {
+        const productTotal = product.price * product.quantity;
+        total += productTotal;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${product.name}</td>
+          <td>${product.quantity}</td>
+          <td>$${productTotal.toFixed(2)}</td>
+        `;
+        summaryItems.appendChild(tr);
+      });
+
+      summaryTotal.textContent = total.toFixed(2);
+    }
+
+    renderSummary();
+
+    // Handle checkout form submission
+    const checkoutForm = document.getElementById('checkout-form');
+    checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (cart.length === 0) {
+        alert('Your cart is empty.');
+        return;
+      }
+
+      // Collect user info (for future backend use)
+      const orderInfo = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        cart: cart
+      };
+
+      console.log('Order submitted:', orderInfo);
+
+      // Clear cart
+      localStorage.removeItem('cart');
+      alert('Thank you! Your order has been placed.');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
